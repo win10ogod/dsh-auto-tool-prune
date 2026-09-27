@@ -23,7 +23,7 @@ export async function fixture(t, options = {}) {
   const requests = [], events = [], executions = []
   ctx.on('session/event', (_session, event) => events.push(event))
   const script = options.script || [
-    { blocks: [tool('one')], reason: { kind: 'tool-calls' } },
+    { blocks: [{ ...tool('one'), name: options.toolName || 'fixture_tool' }], reason: { kind: 'tool-calls' } },
     { blocks: [text('done')] }
   ]
   ctx.llm.registerAdapter(['fixture'], new class extends LlmAdapter {
@@ -36,9 +36,9 @@ export async function fixture(t, options = {}) {
     }
   }())
   ctx.tools.register({
-    name: 'fixture_tool', description: 'Controlled tool fixture',
+    name: options.toolName || 'fixture_tool', description: 'Controlled tool fixture',
     parameters: { type: 'object', properties: {}, additionalProperties: false },
-    output: { schema: { type: 'object' }, render: (_args, value) => [text(value.text)] },
+    output: { schema: { type: 'object' }, render: options.render || ((_args, value) => [text(value.text)]) },
     async execute(_args, execution) {
       executions.push(execution.callId)
       return { text: options.output ?? longOutput }

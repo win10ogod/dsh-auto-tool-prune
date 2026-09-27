@@ -1,6 +1,6 @@
 {
   "name": "dsh-auto-tool-prune",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Automatically prune oversized DSH tool results before each model step",
   "type": "module",
   "main": "lib/index.js",
