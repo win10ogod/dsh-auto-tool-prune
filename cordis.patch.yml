@@ -1,0 +1,4 @@
+- insert:
+    - id: auto-tool-prune
+      name: dsh-auto-tool-prune
+      config: {}
