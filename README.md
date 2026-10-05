@@ -1,6 +1,6 @@
 # dsh-auto-tool-prune
 
-在每次 DSH 模型請求前，自動剪枝過大的工具回傳文字。支援並測試於 DeepSeek Harness `0.1.7-rc.2` 與 `0.2.0-rc.2`，可以和 [dsh-turn-continuation](https://github.com/win10ogod/dsh-turn-continuation) 一起使用。
+在每次 DSH 模型請求前，自動剪枝過大的工具回傳文字。支援並測試於 DeepSeek Harness `0.1.7-rc.2`、`0.2.0-rc.2` 與 `0.2.1-alpha.1`，可以和 [dsh-turn-continuation](https://github.com/win10ogod/dsh-turn-continuation) 一起使用。
 
 插件沿用 DSH 原生 `ToolResultPruner` 的替換與 token 記帳機制，把觸發時機提前到每個 `agent/pre-step`，不必等到上下文已接近上限。原始工具結果留在 append-only 會話紀錄；後續模型請求只看到適合裁切的純文字結果之剪枝版本。工具呼叫參數、schema、結果配對、錯誤狀態及非文字區塊保持原樣。
 
