@@ -6,6 +6,7 @@ import Sessions from '@deepseek-ai/dsh-session'
 import Projections from '@deepseek-ai/dsh-session-projection'
 import Prompt from '@deepseek-ai/dsh-system-prompt'
 import Tools from '@deepseek-ai/dsh-tools'
+import * as NativeToolExecutor from '@deepseek-ai/dsh-tool-executor-native'
 import Loop from '@deepseek-ai/dsh-agent-loop'
 import TokenMeter from '@deepseek-ai/dsh-token-meter'
 import * as pruning from '../lib/index.js'
@@ -16,7 +17,7 @@ export const longOutput = 'BEGIN:' + 'long tool output;'.repeat(1000) + ':END'
 
 export async function fixture(t, options = {}) {
   const ctx = new Context()
-  for (const plugin of [Sessions, Projections, Agents, Llm, Prompt, Tools, TokenMeter]) await ctx.plugin(plugin)
+  for (const plugin of [Sessions, Projections, Agents, Llm, Prompt, Tools, NativeToolExecutor, TokenMeter]) await ctx.plugin(plugin)
   await ctx.plugin(Loop, {})
   await ctx.plugin(options.pruningPlugin || pruning, options.config || {})
   if (options.companion) await ctx.plugin(options.companion)
